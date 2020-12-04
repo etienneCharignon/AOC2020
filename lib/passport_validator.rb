@@ -1,10 +1,10 @@
 class PassportValidator
 
   RULLS = {
-    'byr'=> Proc.new {|value| value.to_i >= 1920 && value.to_i <= 2002},
-    'iyr'=> Proc.new {|value| value.to_i >= 2010 && value.to_i <= 2020},
-    'eyr'=> Proc.new {|value| value.to_i >= 2020 && value.to_i <= 2030},
-    'hgt'=> Proc.new {|value| (value.end_with?('cm') && value.to_i >= 150 && value.to_i <= 193) || (value.end_with?('in') && value.to_i >= 59 && value.to_i <= 76)},
+    'byr'=> Proc.new {|value| (1920..2002).member?(value.to_i)},
+    'iyr'=> Proc.new {|value| (2010..2020).member?(value.to_i)},
+    'eyr'=> Proc.new {|value| (2020..2030).member?(value.to_i)},
+    'hgt'=> Proc.new {|value| (value.end_with?('cm') && (150..193).member?(value.to_i)) || (value.end_with?('in') && (59..76).member?(value.to_i))},
     'hcl'=> Proc.new {|value| (value =~ /#[0-9a-z]{6}/) == 0},
     'ecl'=> Proc.new {|value| ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].include?(value)},
     'pid'=> Proc.new {|value| (value =~ /^[0-9]{9}$/) == 0}
