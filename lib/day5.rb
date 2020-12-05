@@ -3,4 +3,5 @@ require './data_day5'
 
 
 INPUTS = INPUT.split("\n")
-p INPUTS.map { |pass| BordingPassCalculator.seat(pass) }.max
+ids = INPUTS.map { |pass| BordingPassCalculator.seat(pass) }.sort
+ids.each { |pass| p (pass + 1) unless ids.include?(pass + 1) }
