@@ -33,4 +33,12 @@ class LuggageRull
     end
     containing.flatten.uniq
   end
+
+  def self.contained(bags, my_bag)
+    total_count = 0
+    bags[my_bag].each do |bag_name, count|
+        total_count += count + count * contained(bags, bag_name)
+    end
+    total_count
+  end
 end
