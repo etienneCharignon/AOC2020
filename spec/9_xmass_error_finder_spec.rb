@@ -20,5 +20,12 @@ RSpec.describe XMasErrorFinder do
     end
   end
   context "#part2 : find more on the weakness" do
+    it "find more of weakness in example" do
+      expect(XMasErrorFinder.findMoreAboutWeakness(EXAMPLE_INPUT9, 127)).to eql(62)
+    end
+
+    it "find more of weakness" do
+      expect(XMasErrorFinder.findMoreAboutWeakness(INPUT9, 50047984)).to eql(5407707)
+    end
   end
 end
