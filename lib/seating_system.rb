@@ -1,24 +1,35 @@
 class SeatingSystem
-  def self.countNeighbour(cell, i, room)
+  def self.look_for_one_direction(x, y, i, room)
+    i_x_y = i + x + y
+    while true
+      return false if i_x_y < 0 || room[i_x_y] == "\n" || i_x_y > room.size
+      return true if room[i_x_y] == '#'
+      return false if room[i_x_y] == 'L'
+      i_x_y += x + y
+    end
+  end
+      #i >= row_size && room[i - row_size] == cell,
+
+  def self.countNeighbour(i, room)
     row_size = room.index("\n") + 1
     [
-      i > 0 && room[i - 1] == cell,
-      room[i + 1] == cell,
-      room[i + row_size - 1] == cell,
-      room[i + row_size] == cell,
-      room [i + row_size + 1] == cell,
-      i >= row_size + 1 && room[i - row_size - 1] == cell,
-      i >= row_size && room[i - row_size] == cell,
-      i >= row_size && room [i - row_size + 1] == cell
+      look_for_one_direction(-1, 0, i, room),
+      look_for_one_direction(1, 0, i, room),
+      look_for_one_direction(-1, row_size, i, room),
+      look_for_one_direction(0, row_size, i, room),
+      look_for_one_direction(1, row_size, i, room),
+      look_for_one_direction(-1, -row_size, i, room),
+      look_for_one_direction(0, -row_size, i, room),
+      look_for_one_direction(1, -row_size, i, room),
     ].count(true)
   end
 
   def self.next(room)
     nouvelle_generation = ""
     room.each_char.with_index(0) do |cell, i|
-      if cell == '#' && countNeighbour(cell, i, room) >= 4
+      if cell == '#' && countNeighbour(i, room) >= 5
         nouvelle_generation += 'L'
-      elsif cell == 'L' && countNeighbour('#', i, room) == 0
+      elsif cell == 'L' && countNeighbour(i, room) == 0
         nouvelle_generation += '#'
       else
         nouvelle_generation += cell
