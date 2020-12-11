@@ -32,7 +32,6 @@ RSpec.describe LuggageRull, "#part 1" do
 
     it "extrait plusieurs lignes" do
       bags = LuggageRull.read_lines(EXAMPLE_INPUT.split("\n"))
-      p bags
       expect(bags.count).to eq(9)
     end
 
