@@ -18,29 +18,28 @@ class RainRisk
     }
   end
 
+  def new_direction(direction, rotation)
+    @moves.keys[(@moves.keys.index(direction) + rotation)%4]
+  end
+
   def process_from(instruction)
     steps = instruction[1..-1].to_i
     @moves.each_key do |direction|
       @moves[direction] += steps if instruction.start_with?(direction)
     end
     if instruction.start_with?('L')
-      rotation = steps/90
-      @direction = @moves.keys[@moves.keys.index(@direction) - rotation]
+      @direction = new_direction(@direction, -steps/90)
     end
     if instruction.start_with?('R')
-      rotation = steps/90
-      @direction = @moves.keys[(@moves.keys.index(@direction) + rotation)%4]
+      @direction = new_direction(@direction, steps/90)
     end
     @moves[@direction] += steps if instruction.start_with?('F')
   end
 
   def rotate(position, rotation)
-    new_position = {}
-    position.each_key do |direction|
-      nouvelle_direction = position.keys[(position.keys.index(direction) + rotation)%4]
-      new_position[nouvelle_direction] = position[direction]
+    position.each_with_object({}) do |(direction, valeur), new_position|
+      new_position[new_direction(direction, rotation)] = valeur
     end
-    new_position
   end
 
   def process2_from(instruction)
