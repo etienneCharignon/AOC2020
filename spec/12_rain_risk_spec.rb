@@ -2,7 +2,7 @@ require 'rain_risk'
 require 'data_day12'
 
 RSpec.describe RainRisk do
-  describe 'process instructions' do
+  describe 'process instructions part 1' do
     it { expect(RainRisk.process("N1")).to eql({'N' => 1, 'S' => 0, 'E' => 0, 'W' => 0}) }
     it { expect(RainRisk.process("S1")).to eql({'N' => 0, 'S' => 1, 'E' => 0, 'W' => 0}) }
     it { expect(RainRisk.process("F1")).to eql({'N' => 0, 'S' => 0, 'E' => 1, 'W' => 0}) }
