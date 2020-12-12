@@ -2,8 +2,8 @@ class RainRisk
 
   attr_reader :moves, :waypoint
 
-  def initialize(direction)
-    @direction = direction
+  def initialize
+    @direction = 'E'
     @moves = {
       'E' => 0,
       'S' => 0,
@@ -22,6 +22,12 @@ class RainRisk
     @moves.keys[(@moves.keys.index(direction) + rotation)%4]
   end
 
+  def rotate(position, rotation)
+    position.each_with_object({}) do |(direction, valeur), new_position|
+      new_position[new_direction(direction, rotation)] = valeur
+    end
+  end
+
   def process_from(instruction)
     steps = instruction[1..-1].to_i
     @moves.each_key do |direction|
@@ -34,12 +40,6 @@ class RainRisk
       @direction = new_direction(@direction, steps/90)
     end
     @moves[@direction] += steps if instruction.start_with?('F')
-  end
-
-  def rotate(position, rotation)
-    position.each_with_object({}) do |(direction, valeur), new_position|
-      new_position[new_direction(direction, rotation)] = valeur
-    end
   end
 
   def process2_from(instruction)
@@ -61,18 +61,14 @@ class RainRisk
     self
   end
 
-  def self.process(instructions)
-    boat = RainRisk.new('E')
+  def self.process(instructions, part2 = false)
+    boat = RainRisk.new
     instructions.split("\n").each do |instruction|
-      boat.process_from(instruction)
-    end
-    boat.moves
-  end
-
-  def self.process2(instructions)
-    boat = RainRisk.new('E')
-    instructions.split("\n").each do |instruction|
-      boat.process2_from(instruction)
+      if part2
+        boat.process2_from(instruction)
+      else
+        boat.process_from(instruction)
+      end
     end
     boat.moves
   end
