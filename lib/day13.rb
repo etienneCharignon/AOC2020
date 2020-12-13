@@ -2,11 +2,7 @@ require './data_day13'
 
 def compute(ts, buses)
   departures = buses.map do |bus|
-    if ! bus
-      nil
-    else
-      ts / bus * bus + bus
-    end
+    ts / bus * bus + bus
   end
   p buses
   p departures
