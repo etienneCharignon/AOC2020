@@ -37,8 +37,6 @@ def fusion_buses(bus1, bus2)
   i1 = bus2[0]
   sol = gcd(i0, i1)
   t0 = i0 * sol[:x] * (d0 - d1) - d0
-  p t0
-  p i1 * sol[:y] * (d1-d0) -d1
   periode = i0 * i1
   while t0 < 0 do
     t0 += periode
@@ -53,7 +51,6 @@ def find_with_euclide(buses)
     fold[0] = fusion[0]
     fold[1] = fusion[1]
   end
-  p final_bus
   return -final_bus[1]
 end
 
