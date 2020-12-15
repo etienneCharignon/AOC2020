@@ -4,7 +4,7 @@ def recitation(start, n)
   start.each_with_index { |n, i| spoken[n] = [i+1] }
   spoke = start[-1]
   (start.size+1..n).each do |i|
-    if spoken.keys.include? spoke
+    if spoken.key? spoke
       data_spoken = spoken[spoke]
       if data_spoken.size == 1
         spoke = 0
@@ -25,7 +25,6 @@ def recitation2(start, n)
   spoken = []
   start.each_with_index { |n, i| spoken[n] = [i+1] }
   spoke = start[-1]
-  p spoken
   (start.size+1..n).each do |i|
     if spoken[spoke] != nil
       data_spoken = spoken[spoke]
@@ -57,6 +56,6 @@ RSpec.describe "Rambunctious Recitation" do
 
   describe "Part 2" do
     it { expect(recitation2([0,3,6], 30000000)).to eql(175594)}
-    it { expect(recitation2([1,20,8,12,0,14], 30000000)).to eql(492)}
+    it { expect(recitation2([1,20,8,12,0,14], 30000000)).to eql(63644)}
   end
 end
