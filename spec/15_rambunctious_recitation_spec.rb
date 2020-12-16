@@ -55,7 +55,7 @@ RSpec.describe "Rambunctious Recitation" do
   end
 
   describe "Part 2" do
-    it { expect(recitation2([0,3,6], 30000000)).to eql(175594)}
-    it { expect(recitation2([1,20,8,12,0,14], 30000000)).to eql(63644)}
+    xit { expect(recitation2([0,3,6], 30000000)).to eql(175594)}
+    xit { expect(recitation2([1,20,8,12,0,14], 30000000)).to eql(63644)}
   end
 end
