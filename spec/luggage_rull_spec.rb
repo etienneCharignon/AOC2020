@@ -42,7 +42,7 @@ RSpec.describe LuggageRull, "#part 1" do
 
     it "count the input" do
       bags = LuggageRull.read_lines(INPUT.split("\n"))
-      p LuggageRull.containing_bags(bags, 'shiny gold').count
+      expect(LuggageRull.containing_bags(bags, 'shiny gold').count).to eql(155)
     end
 
     it "count contained" do
