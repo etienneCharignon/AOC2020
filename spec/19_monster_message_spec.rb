@@ -125,10 +125,6 @@ def check_only2(rulls)
   "^#{parse2(rulls)}$"
 end
 
-def update(rulls)
-  rulls.gsub('8: 42', '8: 42 | 42 8').gsub('11: 42 31', '11: 42 31 | 42 11 31')
-end
-
 RSpec.describe "Monster Message" do
   describe "part 1" do
     describe "rull parsing" do
