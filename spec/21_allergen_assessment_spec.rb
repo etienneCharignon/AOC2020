@@ -29,6 +29,16 @@ def count_non_alergenic(input)
   count
 end
 
+def find_cdil(rulls)
+  alergens_ingredients = rulls.transform_values { |possible_ingredients| possible_ingredients.inject(:&) }
+  alergens = {}
+  while alergens_ingredients.size != alergens.size do
+    alergens_ingredients.each { |a, ingredients| alergens[a] = ingredients[0] if ingredients.size == 1 }
+    alergens_ingredients.transform_values! { |p_i| p_i - alergens.values }
+  end
+  alergens.sort.to_h.values.join(',')
+end
+
 RSpec.describe "Allergen Assessment" do
   describe "Part 1" do
     describe "#read21" do
@@ -43,6 +53,11 @@ RSpec.describe "Allergen Assessment" do
 
     describe "#find alergenics ingredients" do
       it { expect(find_alergenics(read21(EXAMPLE21))).to eql (["mxmxvkd", "sqjhc", "fvjkl"]) }
+    end
+
+    describe "#find canonical dangerous ingredient list" do
+      it { expect(find_cdil(read21(EXAMPLE21))).to eql ("mxmxvkd,sqjhc,fvjkl") }
+      it { expect(find_cdil(read21(INPUT21))).to eql ("zfcqk,mdtvbb,ggdbl,frpvd,mgczn,zsfzq,kdqls,kktsjbh") }
     end
 
     describe "#count non alergenic ingredients" do
