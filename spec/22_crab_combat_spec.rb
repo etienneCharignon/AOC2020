@@ -1,3 +1,5 @@
+require 'set'
+
 PLAYER_1 = [ 12, 48, 26, 22, 44, 16, 31, 19, 30, 10, 40, 47, 21, 27, 2, 46, 9, 15, 23, 6, 50, 28, 5, 42, 34]
 PLAYER_2 = [ 14, 45, 4, 24, 1, 7, 36, 29, 38, 33, 3, 13, 11, 17, 39, 43, 8, 41, 32, 37, 35, 49, 20, 18, 25]
 
@@ -26,14 +28,14 @@ end
 
 def play_recursive_crab_combat(deck1, deck2, game)
   # p "GAME #{game}"
-  history = []
+  history = Set.new([])
   while !(deck1.empty? or deck2.empty?) do
-    if history.include?([deck1, deck2])
+    decks = [deck1, deck2].to_s
+    if history.include?(decks)
       deck2 = []
       break
     end
-    decks = [deck1.clone, deck2.clone]
-    history << decks
+    history.add(decks)
     c1 = deck1.shift
     c2 = deck2.shift
 
@@ -86,7 +88,7 @@ RSpec.describe "Crab Combat" do
     end
 
     describe "play for real" do
-      xit { expect(compute_score(play_recursive_crab_combat(PLAYER_1, PLAYER_2, 1))).to eql(32448) }
+      xit { expect(compute_score(play_recursive_crab_combat(PLAYER_1, PLAYER_2, 1))).to eql(32949) }
     end
   end
 end
